@@ -68,6 +68,7 @@ static const struct arg args[] = {
 	{ keymap, "| %s|  ",           NULL },
 	{ cpu_perc, "| %s%% ",           NULL },
 	{ cpu_freq, "(freq: %s)|  ",           NULL },
+    { temp,          "| %s°|  ", "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input" },
 	{ ram_used, "| %s/",           NULL },
 	{ ram_total, "%s|  ",           NULL },
 	/* { ram_perc, "| %s%%|  ",           NULL }, */
