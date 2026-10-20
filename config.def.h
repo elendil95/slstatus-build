@@ -61,6 +61,19 @@ static const char unknown_str[] = "n/a";
  * wifi_perc           WiFi signal in percent          interface name (wlan0)
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
+
+/* About fetching CPU temps:
+ * # intel CPUs 
+ * In lm-sensors, cpu shows up as coretemp-isa-0000.
+ * The value to use is usually a path like: "/sys/devices/platform/coretemp.0/hwmon/hwmonX/tempN_input". We take whichever temp has label "package id 0" for overall CPU temp. 
+ * I assume this would be different on multi-cpu systems.
+ * This interface does not seem to be 100% stable, it will change the number represented by X sometimes.
+ *
+ * # AMD CPUs
+ * On AMD, cpu temperatures are reported under "k10temp-pci-00c3" in lm-sensors.
+ * How to get:
+ * 1) ls -lah /sys/class/hwmon/, and follow the symlinks for all pci devices untill you find temp1_label that matches the label of the CPU sensor in lm-sensors.
+ * 2) once found, use the more stable sensor path under /sys/devices/pci0000:00/ in this config file*/
 static const struct arg args[] = {
 	/* function format          argument */
 	{ num_updates, "| Updates: %s |  ",  NULL },
@@ -73,5 +86,5 @@ static const struct arg args[] = {
 	{ ram_used, "| %s/",           NULL },
 	{ ram_total, "%s|  ",           NULL },
 	/* { ram_perc, "| %s%%|  ",           NULL }, */
-	{ datetime, "| %s|",           "%A %d-%m-%Y -- %I:%M %p" },
+	{ datetime, "| %s|",           "%A %d-%m-%Y -- %H:%M %p" },
 };
